@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Valentine ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+<script>
+/* ============================================================
+   ❤️  VALENTINE WEBSITE — EASY SETTINGS
+   ============================================================
+   STEP 1 — Set the unlock date (when the website opens):
+   STEP 2 — Add your photos / videos / music (see folder guide)
+   ============================================================ */
+
+const CONFIG = {
+
+  /* --- UNLOCK DATE ---
+     The website shows ONLY a countdown until this date.
+     On this exact date it unlocks and opens the love story.
+
+     YEAR  : e.g. 2026
+     MONTH : 1=Jan  2=Feb  3=Mar  4=Apr  5=May  6=Jun
+             7=Jul  8=Aug  9=Sep  10=Oct 11=Nov 12=Dec
+     DAY   : 1 – 31
+  */
+  UNLOCK_YEAR  : 2026,
+  UNLOCK_MONTH : 2,      // February
+  UNLOCK_DAY   : 14,     // 14th  →  February 14, 2026
+
+  /* --- SONG 1 ---  Her first favourite song */
+  SONG1_TITLE  : "Muthe Muthe",
+  SONG1_ARTIST : "Shyam Dharman ",
+  SONG1_FILE   : "music/muthe.mp3",   // place file here
+  SONG1_LYRICS : `Muthe Muthe" enna paattu nammal call-il irikkumbol play cheyyumbol, nee athu kettittu urakkathilekku pokunnathu enikku ettavum ishtamulla nimishangalil onnanu...
+
+Nee urakkathil aayalum, njan call cut cheyyathe ninte koode thanne irikkum...
+Chila samayangalil nee pedichu urakkathil ninnu "Adhii..." ennu vilikkumbol, aa oru vili mathram mathi ente hridayam nirakkan...
+
+Baby, nee urakkathil aayirikkumbolum njan ivide thanne undu...
+Ninte shwasam kettukondum, nammade favourite paattu kettukondum, ninte "Adhii" enna vili kaathirikkukayaanu...
+
+Muthe Muthe paattinte oro variyum kettappol, enikku orma varunnathu nee aanu...
+Karanaṁ aa paattu nammade paattu aanu, aa nimishangal nammade kathayaanu, nee aanu ente ettavum valiya santhosham... ❤️🥺✨`,
+
+  /* --- SONG 2 ---  Her second favourite song */
+  SONG2_TITLE  : "Va vavo",
+  SONG2_ARTIST : "P. Jayachandran & Sujatha Mohan",
+  SONG2_FILE   : "music/vave.mp3",   // place file here
+  SONG2_LYRICS : `Va Vaavo Vaave" oru paattu maathram alla enikku...
+Athil undu nammade raathrikal, nammade callukal, ninte urakkam, ninte "Adhii" enna madhuramaaya vili, pinne njan hridayathil sookshikkunna kure sundara ormakal... ❤️🌙
+
+Nee urakkathil aayalum, ente manassu ninte koode thanne aanu... Muthe. ❤️🥰`,
+
+};
+
+/* ============================================================
+   FILE FOLDER GUIDE — place these folders next to valentine.html
+   ============================================================
+   photos/
+     her1.jpg … her5.jpg      ← her solo photos
+     us1.jpg  … us5.jpg       ← couple photos together
+     mem1.jpg … mem6.jpg      ← memory book photos
+   videos/
+     v1.mp4  … v12.mp4        ← her videos (rename yours v1, v2…)
+   music/
+     song1.mp3                ← first favourite song
+     song2.mp3                ← second favourite song
+   ============================================================ */
+</script>
+
+<style>
+:root{--rose:#e8305a;--blush:#f7b8c8;--wine:#8b1a3a;--gold:#d4a843;--gold-light:#f5d88e;--lavender:#c9a0dc;--glass:rgba(255,255,255,0.08);--glass-border:rgba(255,255,255,0.18);--text-light:#fff8fa;--text-dim:rgba(255,220,230,0.75);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;cursor:none;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Lato',sans-serif;background:#0d0008;color:var(--text-light);touch-action:manipulation;}
+
+/* CURSOR */
+#cursor{position:fixed;width:20px;height:20px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cursor svg{width:100%;height:100%;filter:drop-shadow(0 0 5px #e8305a);}
+
+/* LOCK SCREEN */
+#lockScreen{position:fixed;inset:0;background:radial-gradient(ellipse at center,#2a0520 0%,#0d0008 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:20px;}
+#lockScreen.hidden{display:none;}
+.lock-heart{font-size:clamp(60px,15vw,90px);animation:lockbeat 1.2s ease-in-out infinite;}
+@keyframes lockbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+.lock-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,5vw,2.2rem);text-align:center;margin:16px 0 6px;}
+.lock-sub{font-family:'Dancing Script',cursive;font-size:clamp(1rem,4vw,1.4rem);color:var(--gold-light);text-align:center;margin-bottom:24px;}
+.lock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:min(92vw,400px);margin:10px 0;}
+.lock-block{background:rgba(255,255,255,.07);border:1px solid var(--glass-border);border-radius:14px;padding:14px 8px;text-align:center;backdrop-filter:blur(8px);}
+.lock-num{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.4rem);color:var(--gold-light);display:block;line-height:1;}
+.lock-label{font-size:.6rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;margin-top:4px;}
+.lock-msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.85rem,3vw,1.05rem);color:var(--text-dim);text-align:center;max-width:340px;line-height:1.7;margin-top:16px;}
+.lock-date{font-family:'Dancing Script',cursive;font-size:clamp(1rem,3.5vw,1.2rem);color:var(--rose);margin-top:10px;}
+.hb-svg{width:min(90vw,320px);height:50px;margin:10px auto;}
+
+/* LOADING */
+#loading{position:fixed;inset:0;background:radial-gradient(ellipse at center,#2a0520 0%,#0d0008 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:8888;}
+#loading.hidden{display:none;}
+.load-heart{font-size:clamp(60px,15vw,100px);animation:loadbeat 1s ease-in-out infinite;}
+.load-txt{font-family:'Dancing Script',cursive;font-size:clamp(1.1rem,4vw,1.6rem);color:var(--blush);margin-top:16px;}
+@keyframes loadbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+
+/* BG CANVAS */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* NAV */
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:rgba(13,0,8,.78);backdrop-filter:blur(10px);border-top:1px solid var(--glass-border);}
+#nav .pg-ind{font-size:.65rem;color:var(--text-dim);letter-spacing:.08em;text-align:center;flex:1;padding:0 6px;}
+#nav button{background:none;border:none;color:var(--blush);font-size:1.3rem;padding:6px 10px;flex-shrink:0;}
+#nav button:active{transform:scale(.88);}
+#musicBtn{position:fixed;top:12px;right:12px;z-index:200;background:var(--glass);border:1px solid var(--glass-border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);font-size:1.1rem;}
+#pgNum{position:fixed;top:12px;left:12px;z-index:200;font-family:'Dancing Script',cursive;font-size:.85rem;color:var(--text-dim);background:var(--glass);padding:3px 10px;border-radius:20px;border:1px solid var(--glass-border);backdrop-filter:blur(6px);}
+
+/* PAGES */
+.page{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;
+  z-index:10;opacity:0;pointer-events:none;
+  transition:opacity .6s,transform .6s;
+  transform:translateY(24px);
+  overflow-y:auto;overflow-x:hidden;
+  padding:24px 16px 84px;
+  padding-top:max(24px, env(safe-area-inset-top));
+  padding-bottom:max(84px, calc(70px + env(safe-area-inset-bottom)));
+  scrollbar-width:thin;scrollbar-color:var(--rose) transparent;
+  box-sizing:border-box;
+}
+/* Centering spacer: pushes short content toward vertical middle,
+   but never hides the top of tall content (flex-start + auto margin) */
+.page{ }
+.page > *:first-child{ margin-top:auto; }
+.page > *:last-child{ margin-bottom:auto; }
+.page::-webkit-scrollbar{width:3px;}.page::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px;}
+.page.active{opacity:1;pointer-events:all;transform:translateY(0);}
+.page.exit-up{opacity:0;transform:translateY(-24px);}
+
+/* RESPONSIVE - small phones get tighter side padding */
+@media(max-width:479px){
+  .page{padding-left:12px;padding-right:12px;}
+}
+
+/* RESPONSIVE - tablet / desktop: comfortable max width, no edge stretch */
+@media(min-width:768px){
+  .page{padding-left:clamp(16px,6vw,90px);padding-right:clamp(16px,6vw,90px);}
+}
+
+/* COMMON */
+.glass-card{background:rgba(255,255,255,.07);border:1px solid var(--glass-border);border-radius:22px;backdrop-filter:blur(14px);padding:clamp(18px,4vw,34px);width:100%;max-width:540px;box-shadow:0 6px 36px rgba(232,48,90,.13);}
+h2{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,5vw,2rem);text-align:center;margin-bottom:12px;}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-dim);font-size:clamp(.8rem,3vw,1rem);text-align:center;margin-top:8px;}
+.btn{display:inline-block;padding:12px 30px;border-radius:50px;background:linear-gradient(135deg,var(--rose),var(--wine));border:none;color:#fff;font-family:'Dancing Script',cursive;font-size:clamp(1rem,4vw,1.3rem);letter-spacing:.04em;box-shadow:0 4px 18px rgba(232,48,90,.45);transition:transform .15s;margin-top:16px;}
+.btn:active{transform:scale(.93);}
+.btn-outline{background:transparent;border:1px solid var(--blush);color:var(--blush);box-shadow:none;}
+.big-heart{font-size:clamp(70px,18vw,120px);animation:pulse 1.4s ease-in-out infinite;filter:drop-shadow(0 0 28px #e8305a);}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
+.cursor-blink{display:inline-block;width:2px;height:1em;background:var(--rose);margin-left:2px;animation:blink .7s step-end infinite;vertical-align:middle;}
+@keyframes blink{50%{opacity:0;}}
+.float-heart{position:fixed;pointer-events:none;animation:floatUp 4s ease-in forwards;z-index:50;}
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:.9;}100%{transform:translateY(-80vh) scale(.3) rotate(20deg);opacity:0;}}
+.star{position:fixed;background:#fff;border-radius:50%;pointer-events:none;animation:twinkle 2s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.1;}50%{opacity:.7;}}
+#toast{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:rgba(232,48,90,.92);color:#fff;padding:9px 22px;border-radius:30px;font-size:.82rem;opacity:0;transition:opacity .4s;z-index:300;pointer-events:none;white-space:nowrap;}
+#toast.show{opacity:1;}
+
+/* HER PHOTOS / TOGETHER */
+.photo-section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.85rem,3vw,1rem);color:var(--gold-light);text-align:center;margin:6px 0 12px;}
+.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%;max-width:480px;}
+.photo-frame{border-radius:16px;overflow:hidden;border:2px solid rgba(232,48,90,.3);background:rgba(255,255,255,.05);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;backdrop-filter:blur(4px);transition:transform .22s;}
+.photo-frame:active{transform:scale(.95);}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-frame .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:10px;}
+.photo-frame .ph-icon{font-size:clamp(1.8rem,6vw,2.5rem);}
+.photo-frame .ph-label{font-size:.58rem;color:var(--text-dim);text-align:center;margin-top:4px;line-height:1.3;}
+.photo-frame .photo-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font-size:.6rem;font-family:'Dancing Script',cursive;padding:5px 6px;text-align:center;}
+.photo-wide{grid-column:span 2;aspect-ratio:2/1;}
+.together-frame{border-radius:16px;overflow:hidden;border:2px solid rgba(212,168,67,.3);background:rgba(255,255,255,.05);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:transform .22s;}
+.together-frame:active{transform:scale(.95);}
+.together-frame img{width:100%;height:100%;object-fit:cover;}
+.together-frame .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:10px;}
+.together-frame .caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));font-family:'Dancing Script',cursive;font-size:.62rem;padding:5px 6px;text-align:center;color:var(--gold-light);}
+.together-wide{grid-column:span 2;aspect-ratio:16/9;}
+.ph-hint{font-size:.62rem;color:var(--text-dim);margin-top:6px;text-align:center;}
+
+/* VIDEO GALLERY */
+.video-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:500px;}
+.video-thumb{border-radius:12px;overflow:hidden;border:2px solid rgba(232,48,90,.25);background:rgba(255,255,255,.05);aspect-ratio:9/16;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:transform .22s;}
+.video-thumb:active{transform:scale(.94);}
+.video-thumb video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;pointer-events:none;}
+.vt-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.38);}
+.vt-play{font-size:1.8rem;filter:drop-shadow(0 0 8px rgba(232,48,90,.8));}
+.vt-label{font-family:'Dancing Script',cursive;font-size:.6rem;color:rgba(255,255,255,.85);margin-top:3px;text-align:center;padding:0 4px;}
+.vt-num{position:absolute;top:5px;left:6px;background:rgba(232,48,90,.85);color:#fff;font-size:.55rem;padding:2px 6px;border-radius:7px;}
+
+/* VIDEO MODAL */
+#vidModal{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));}
+#vidModal.open{display:flex;}
+#vidModal video{width:100%;max-width:min(92vw,560px);max-height:65vh;border-radius:14px;background:#000;outline:none;display:block;}
+#vidModal .vm-title{font-family:'Dancing Script',cursive;font-size:clamp(1rem,3.5vw,1.1rem);color:var(--blush);margin-top:10px;text-align:center;max-width:min(92vw,540px);}
+#vidModal .vm-nav{display:flex;gap:14px;margin-top:10px;align-items:center;flex-wrap:wrap;justify-content:center;}
+#vidModal .vm-nav button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--blush);padding:8px 18px;border-radius:20px;font-family:'Dancing Script',cursive;font-size:1rem;}
+#vidModal .vm-counter{font-size:.75rem;color:var(--text-dim);min-width:50px;text-align:center;}
+#vidSpinner{display:none;font-size:2rem;animation:vidspin 1s linear infinite;margin:8px 0;}
+#vidSpinner.show{display:block;}
+@keyframes vidspin{to{transform:rotate(360deg);}}
+
+/* PHOTO MODAL */
+#photoModal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px;}
+#photoModal.open{display:flex;}
+#photoModal .modal-img{max-width:90vw;max-height:72vh;border-radius:16px;object-fit:contain;border:2px solid var(--glass-border);}
+#photoModal .modal-placeholder{width:min(80vw,300px);height:min(60vw,300px);background:var(--glass);border:2px solid var(--glass-border);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:4rem;}
+#photoModal .modal-cap{font-family:'Dancing Script',cursive;font-size:1.2rem;margin-top:14px;color:var(--blush);}
+
+/* SONG PLAYER */
+.song-player{background:var(--glass);border:1px solid var(--glass-border);border-radius:24px;padding:clamp(18px,4vw,30px);max-width:420px;width:100%;backdrop-filter:blur(14px);text-align:center;}
+.song-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.song-tab{padding:7px 18px;border-radius:20px;border:1px solid var(--glass-border);background:transparent;color:var(--text-dim);font-family:'Dancing Script',cursive;font-size:1rem;transition:all .2s;}
+.song-tab.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+.song-cover{width:clamp(70px,18vw,100px);height:clamp(70px,18vw,100px);background:linear-gradient(135deg,var(--rose),var(--wine));border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 0 28px rgba(232,48,90,.4);}
+.song-cover.playing{animation:spinSlow 8s linear infinite;}
+@keyframes spinSlow{to{transform:rotate(360deg);}}
+.player-btns{display:flex;gap:16px;justify-content:center;margin:8px 0;}
+.player-btns button{background:none;border:none;color:var(--blush);font-size:1.5rem;}
+.prog-bar{width:100%;height:3px;background:rgba(255,255,255,.12);border-radius:3px;margin:8px 0;}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:3px;transition:width .5s linear;}
+.lyrics-box{margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.78rem,2.8vw,.95rem);color:var(--text-dim);line-height:1.8;max-height:90px;overflow-y:auto;text-align:left;padding:0 4px;}
+
+/* TIMELINE */
+.timeline{width:100%;max-width:480px;position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--rose),var(--lavender),var(--gold));}
+.t-item{position:relative;margin-bottom:20px;opacity:0;transform:translateX(18px);transition:all .55s;}
+.t-item.show{opacity:1;transform:translateX(0);}
+.t-item::before{content:'❤';position:absolute;left:-24px;font-size:12px;top:2px;}
+.t-date{font-size:.68rem;letter-spacing:.1em;color:var(--gold-light);text-transform:uppercase;}
+.t-title{font-family:'Playfair Display',serif;font-size:clamp(.95rem,3.2vw,1.1rem);margin:2px 0;}
+.t-desc{font-size:.8rem;color:var(--text-dim);line-height:1.45;}
+
+/* LETTER */
+.letter-paper{background:rgba(255,240,245,.05);border:1px solid rgba(255,200,220,.18);border-radius:12px;padding:clamp(16px,4vw,28px);max-width:560px;width:100%;position:relative;box-shadow:0 4px 26px rgba(232,48,90,.08);}
+.letter-paper::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(transparent,transparent 27px,rgba(232,48,90,.07) 27px,rgba(232,48,90,.07) 28px);border-radius:12px;pointer-events:none;}
+#letterText{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,3vw,1.1rem);line-height:1.85;color:var(--text-light);min-height:160px;position:relative;z-index:1;}
+
+/* MEMORY BOOK */
+.memory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%;max-width:480px;}
+.memory-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;transition:transform .25s;}
+.memory-card:active{transform:scale(.95);}
+.memory-card .mem-photo{width:100%;aspect-ratio:1;background:rgba(232,48,90,.1);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;}
+.memory-card .mem-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.memory-card .mem-info{padding:10px 12px;}
+.memory-card .mem-title{font-family:'Playfair Display',serif;font-size:.9rem;}
+.memory-card .mem-desc{font-size:.68rem;color:var(--text-dim);line-height:1.4;margin-top:3px;}
+
+/* REASONS */
+.reason-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:28px 22px;max-width:360px;width:100%;text-align:center;backdrop-filter:blur(12px);box-shadow:0 4px 28px rgba(232,48,90,.18);}
+.reason-num{font-size:.75rem;color:var(--text-dim);letter-spacing:.1em;margin-bottom:8px;}
+.reason-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,4vw,1.4rem);font-style:italic;line-height:1.5;}
+.r-nav{display:flex;gap:12px;margin-top:14px;align-items:center;width:100%;max-width:360px;}
+.r-prog{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;}
+.r-prog-fill{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .4s;}
+
+/* ADORE */
+.adore-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;width:100%;max-width:460px;}
+.adore-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:clamp(12px,3vw,20px);text-align:center;backdrop-filter:blur(8px);transform:scale(.85);opacity:0;transition:all .45s;}
+.adore-card.show{transform:scale(1);opacity:1;}
+.adore-icon{font-size:clamp(1.6rem,5vw,2.2rem);display:block;margin-bottom:5px;}
+.adore-title{font-family:'Playfair Display',serif;font-size:clamp(.85rem,3vw,1rem);margin-bottom:3px;}
+.adore-desc{font-size:.7rem;color:var(--text-dim);line-height:1.35;}
+
+/* QUIZ */
+.quiz-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:clamp(16px,4vw,28px);max-width:460px;width:100%;backdrop-filter:blur(12px);}
+.quiz-q{font-family:'Playfair Display',serif;font-size:clamp(.9rem,3.2vw,1.1rem);margin-bottom:12px;line-height:1.4;}
+.quiz-opts{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{background:rgba(255,255,255,.06);border:1px solid var(--glass-border);border-radius:11px;padding:9px 14px;font-size:.85rem;transition:all .2s;text-align:left;}
+.quiz-opt.correct{background:rgba(80,200,120,.2);border-color:rgba(80,200,120,.5);}
+.quiz-opt.wrong{background:rgba(232,48,90,.2);border-color:var(--rose);}
+
+/* CONFESSION BG */
+.heartbeat-bg{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M0 15 L10 15 L15 5 L20 25 L25 15 L35 15 L40 8 L45 22 L50 15 L100 15' fill='none' stroke='%23e8305a' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px 50px;animation:moveBg 6s linear infinite;}
+@keyframes moveBg{from{background-position:0 0;}to{background-position:200px 0;}}
+
+/* DREAMS */
+.dreams-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;max-width:460px;width:100%;}
+.dream-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:clamp(11px,3vw,18px);text-align:center;backdrop-filter:blur(8px);}
+.dream-icon{font-size:clamp(1.5rem,5vw,2rem);display:block;margin-bottom:5px;}
+.dream-title{font-family:'Playfair Display',serif;font-size:clamp(.82rem,2.8vw,.95rem);margin-bottom:3px;}
+.dream-desc{font-size:.68rem;color:var(--text-dim);}
+
+/* COUPONS */
+.coupons-wrap{display:flex;flex-direction:column;gap:9px;width:100%;max-width:390px;}
+.coupon{background:linear-gradient(135deg,rgba(232,48,90,.13),rgba(139,26,58,.08));border:1px dashed var(--blush);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;}
+.coupon::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--rose),var(--gold));}
+.coupon-icon{font-size:1.6rem;flex-shrink:0;}
+.coupon-title{font-family:'Playfair Display',serif;font-size:clamp(.85rem,3vw,.95rem);}
+.coupon-sub{font-size:.65rem;color:var(--text-dim);}
+.coupon-redeem{margin-left:auto;background:var(--rose);border:none;border-radius:8px;color:#fff;padding:4px 10px;font-size:.65rem;flex-shrink:0;}
+
+/* SECRET */
+.secret-form{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:300px;}
+.secret-form input{width:100%;padding:11px 18px;border-radius:11px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text-light);font-family:'Dancing Script',cursive;font-size:1.1rem;text-align:center;outline:none;backdrop-filter:blur(8px);}
+.secret-form input::placeholder{color:var(--text-dim);}
+.hint{font-size:.72rem;color:var(--text-dim);text-align:center;}
+
+/* THANKS */
+.thanks-list{width:100%;max-width:460px;display:flex;flex-direction:column;gap:9px;}
+.thanks-item{background:var(--glass);border:1px solid var(--glass-border);border-radius:13px;padding:11px 16px;display:flex;align-items:center;gap:11px;backdrop-filter:blur(8px);transform:translateX(-26px);opacity:0;transition:all .5s;}
+.thanks-item.show{transform:translateX(0);opacity:1;}
+.thanks-item .t-icon{font-size:1.4rem;flex-shrink:0;}
+.thanks-item .t-text{font-size:.83rem;line-height:1.35;color:var(--text-dim);}
+.thanks-item .t-text strong{color:var(--text-light);}
+
+/* FOREVER */
+#foreverCanvas{position:absolute;inset:0;z-index:1;}
+.forever-text{position:relative;z-index:2;text-align:center;}
+.forever-text h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,6vw,2.8rem);animation:glow 2s ease-in-out infinite alternate;}
+@keyframes glow{from{text-shadow:0 0 10px var(--rose);}to{text-shadow:0 0 30px var(--rose),0 0 60px var(--gold);}}
+
+/* PROPOSAL */
+#fireworkCanvas{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.proposal-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.proposal-heart{font-size:clamp(65px,16vw,110px);animation:pbeat 1s ease-in-out infinite;filter:drop-shadow(0 0 35px #e8305a);}
+@keyframes pbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.18);}}
+.proposal-text{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,5.5vw,2.4rem);margin:12px 0;text-shadow:0 0 18px var(--rose);}
+.yes-no{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+
+/* ENDING SLIDESHOW */
+.slideshow{width:100%;max-width:380px;height:190px;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--glass-border);}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;transition:opacity .8s;background:var(--glass);backdrop-filter:blur(10px);}
+.slide.active{opacity:1;}
+.slide-icon{font-size:3.2rem;}
+.slide-cap{font-family:'Dancing Script',cursive;font-size:clamp(.85rem,3vw,1rem);margin-top:7px;color:var(--blush);}
+.ending-msg{font-family:'Playfair Display',serif;font-size:clamp(1rem,3.8vw,1.5rem);text-align:center;margin-top:16px;animation:glow 2s ease-in-out infinite alternate;}
+.glow-text{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,3.2vw,1.15rem);line-height:1.9;text-align:center;max-width:520px;animation:textGlow 3s ease-in-out infinite alternate;}
+@keyframes textGlow{from{text-shadow:0 0 5px rgba(232,48,90,.3);}to{text-shadow:0 0 18px rgba(232,48,90,.65),0 0 36px rgba(212,168,67,.25);}}
+
+/* RESPONSIVE */
+@media(max-width:380px){
+  .adore-grid,.dreams-grid{grid-template-columns:1fr;}
+  .video-gallery{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor"><svg viewBox="0 0 24 24" fill="#e8305a"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg></div>
+
+<!-- ===== LOCK SCREEN ===== -->
+<div id="lockScreen">
+  <div class="lock-heart">❤️</div>
+  <div class="lock-title">Something Special Awaits You</div>
+  <div class="lock-sub">Unlocks on Valentine's Day 💕</div>
+  <div class="lock-grid">
+    <div class="lock-block"><span class="lock-num" id="lk-d">00</span><div class="lock-label">Days</div></div>
+    <div class="lock-block"><span class="lock-num" id="lk-h">00</span><div class="lock-label">Hours</div></div>
+    <div class="lock-block"><span class="lock-num" id="lk-m">00</span><div class="lock-label">Minutes</div></div>
+    <div class="lock-block"><span class="lock-num" id="lk-s">00</span><div class="lock-label">Seconds</div></div>
+  </div>
+  <svg class="hb-svg" viewBox="0 0 320 50" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="0,25 35,25 48,8 58,42 67,16 76,34 88,25 140,25 153,9 163,41 172,15 181,35 192,25 320,25" fill="none" stroke="#e8305a" stroke-width="2" stroke-dasharray="500" stroke-dashoffset="500">
+      <animate attributeName="stroke-dashoffset" from="500" to="0" dur="1.5s" repeatCount="indefinite"/>
+    </polyline>
+  </svg>
+  <div class="lock-msg">"Every second that passes is a second closer to the most beautiful surprise waiting just for you…"</div>
+  <div class="lock-date" id="lockDateLabel">💝 February 14, 2026 💝</div>
+</div>
+
+<!-- Loading -->
+<div id="loading" class="hidden">
+  <div class="load-heart">❤️</div>
+  <div class="load-txt">Preparing your love story…</div>
+</div>
+
+<canvas id="bgCanvas"></canvas>
+<button id="musicBtn">🎵</button>
+<div id="pgNum">1 / 22</div>
+<div id="toast"></div>
+<div id="nav">
+  <button id="prevBtn">←</button>
+  <span class="pg-ind" id="pgInd">Welcome</span>
+  <button id="nextBtn">→ ❤</button>
+</div>
+
+<!-- Video Modal -->
+<div id="vidModal">
+  <video id="vidModalPlayer" controls playsinline webkit-playsinline="true" x5-playsinline="true" preload="auto"></video>
+  <div id="vidSpinner">⏳</div>
+  <div class="vm-title" id="vmTitle">Her beautiful video 🎬</div>
+  <div class="vm-nav">
+    <button onclick="vidNav(-1)">← Prev</button>
+    <span class="vm-counter" id="vmCounter">1 / 12</span>
+    <button onclick="vidNav(1)">Next →</button>
+  </div>
+  <button class="btn btn-outline" onclick="closeVidModal()" style="margin-top:8px;">Close ❤</button>
+</div>
+
+<!-- Photo Modal -->
+<div id="photoModal">
+  <div id="modalPlaceholder" class="modal-placeholder"><span id="modalIcon">📷</span></div>
+  <img id="modalImg" class="modal-img" src="" style="display:none;" alt="Memory">
+  <div class="modal-cap" id="modalCap">A beautiful memory 💕</div>
+  <button class="btn close-modal btn-outline" onclick="closeModal()">Close ❤</button>
+</div>
+
+<!-- ===== PAGE 1: WELCOME ===== -->
+<div class="page active" id="p1">
+  <div class="big-heart">❤️</div>
+  <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,6vw,3rem);text-align:center;">For My Beautiful<br>Girlfriend</h1>
+  <div style="font-family:'Dancing Script',cursive;font-size:clamp(1.1rem,4.5vw,1.7rem);color:var(--gold-light);margin:12px 0;">❤️ A love story, just for you ❤️</div>
+  <p class="quote">"In all the world, there is no heart for me like yours."</p>
+  <button class="btn" onclick="goTo(1)">Open My Heart 💕</button>
+</div>
+
+<!-- ===== PAGE 2: HER PHOTOS ===== -->
+<div class="page" id="p2">
+  <h2>Her Beautiful Photos 🌸</h2>
+  <p class="photo-section-title">The most beautiful girl in the world 💕</p>
+  <div class="photo-grid">
+    <div class="photo-frame" onclick="openPhotoModal('img/her/1.jpeg','I love you💖')">
+      <img src="img/her/1.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/1.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/2.jpeg','I love you💖')">
+      <img src="img/her/2.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/2.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/3.jpeg','I love you💖')">
+      <img src="img/her/3.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/3.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/4.jpeg','I love you💖')">
+      <img src="img/her/4.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/4.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/6.jpeg','I love you💖')">
+      <img src="img/her/6.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/6.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/7.jpeg','I love you💖')">
+      <img src="img/her/7.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/7.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/8.jpeg','I love you💖')">
+      <img src="img/her/8.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/8.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+
+    
+
+
+
+     <div class="photo-frame" onclick="openPhotoModal('img/her/9.jpeg','I love you💖')">
+      <img src="img/her/9.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/9.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/10.jpeg','I love you💖')">
+      <img src="img/her/10.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/10.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/12.jpeg','I love you💖')">
+      <img src="img/her/12.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/12.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/13.jpeg','I love you💖')">
+      <img src="img/her/13.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/13.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+
+
+
+
+
+    
+     <div class="photo-frame" onclick="openPhotoModal('img/her/14.jpeg','I love you💖')">
+      <img src="img/her/14.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/14.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/15.jpeg','I love you💖')">
+      <img src="img/her/15.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/15.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/16.jpeg','I love you💖')">
+      <img src="img/her/16.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/16.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/17.jpeg','I love you💖')">
+      <img src="img/her/17.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/17.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    <div class="photo-frame" onclick="openPhotoModal('img/her/18.jpeg','I love you💖')">
+      <img src="img/her/18.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/18.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+
+    <div class="photo-frame" onclick="openPhotoModal('img/her/19.jpeg','I love you💖')">
+      <img src="img/her/19.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/her/19.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+
+
+    <div class="photo-frame photo-wide" onclick="openPhotoModal('img/her/5.jpeg','I love you💖')">
+      <img src="img/her/5.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder" style="flex-direction:row;gap:12px;"><div class="ph-icon">💖</div><div class="ph-label">img/her/5.jpeg</div></div>
+      <div class="photo-caption">💖💖💖💖</div>
+    </div>
+    
+  </div>
+  <p class="ph-hint"><strong>ille I love uuuuu umwwaaaa💖</strong> </p>
+  <button class="btn" onclick="goTo(2)">Her Videos 🎬</button>
+</div>
+
+<!-- ===== PAGE 3: HER VIDEOS ===== -->
+<div class="page" id="p3">
+  <h2>Her Videos 🎬</h2>
+  <p class="photo-section-title" style="color:var(--gold-light);">Every video is a treasure 💕</p>
+  <div class="video-gallery" id="videoGallery">
+    <!-- Thumbnails are generated automatically from the videoData array in the script below.
+         To add a video here, just add one line to videoData — no HTML editing needed. -->
+  </div>
+  <p class="ph-hint">Njan ninne onn ketti pidichotte 🤗🤗🤗🤗</p>
+  <button class="btn" onclick="goTo(3)" style="margin-top:10px">Us Together 💑</button>
+</div>
+
+<!-- ===== PAGE 4: TOGETHER PHOTOS ===== -->
+<div class="page" id="p4">
+  <h2>Us Together 💑</h2>
+  <p class="photo-section-title" style="color:var(--gold-light);">Every photo with you is my favourite 💕</p>
+  <div class="photo-grid">
+    <div class="together-frame" onclick="openPhotoModal('img/us/2.jpeg','I love you💖')">
+      <img src="img/us/2.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/2.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/1.jpeg','I love you💖')">
+      <img src="img/us/1.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/1.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/3.jpeg','I love you💖')">
+      <img src="img/us/3.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/3.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/4.jpeg','I love you💖')">
+      <img src="img/us/4.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/4.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+     <div class="together-frame" onclick="openPhotoModal('img/us/9.jpeg','I love you💖')">
+      <img src="img/us/5.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/5.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/6.jpeg','I love you💖')">
+      <img src="img/us/6.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/6.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/7.jpeg','I love you💖')">
+      <img src="img/us/7.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/7.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+    <div class="together-frame" onclick="openPhotoModal('img/us/8.jpeg','I love you💖')">
+      <img src="img/us/4.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder"><div class="ph-icon"> </div><div class="ph-label">img/us/4.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+
+    <div class="together-frame together-wide" onclick="openPhotoModal('img/us/5.jpeg','I love you💖')">
+      <img src="img/us/5.jpeg" alt="" onerror="this.style.display='none'">
+      <div class="placeholder" style="flex-direction:row;gap:12px;"><div class="ph-icon"> </div><div class="ph-label">img/us/5.jpeg</div></div>
+      <div class="caption">I love you💖</div>
+    </div>
+  </div>
+  <p class="ph-hint">Dii Njan oru Umma theratte 💋</p>
+  <button class="btn" onclick="goTo(4)">Us Together Videos 🎥</button>
+</div>
+
+<!-- ===== PAGE 5: US TOGETHER VIDEOS ===== -->
+<div class="page" id="p5">
+  <h2>Us Together Videos 🎥</h2>
+  <p class="photo-section-title" style="color:var(--gold-light);">Moments of us, captured together 💑</p>
+  <div class="video-gallery" id="videoGalleryTogether">
+    <!-- Thumbnails are generated automatically from the usVideoData array in the script below.
+         To add a video here, just add one line to usVideoData — no HTML editing needed. -->
+  </div>
+  <p class="ph-hint">Pinne ille yenik ninna orupad istam ann taa 💕</p>
+  <button class="btn" onclick="goTo(5)" style="margin-top:10px">Love Letter 💌</button>
+</div>
+
+<!-- ===== PAGE 6: LOVE LETTER ===== -->
+<div class="page" id="p6">
+  <h2>A Letter From My Heart 💌</h2>
+  <div class="letter-paper">
+    <div id="letterText"></div><span class="cursor-blink"></span>
+  </div>
+  <button class="btn" onclick="goTo(6)" style="margin-top:12px">Our Story →</button>
+</div>
+
+<!-- ===== PAGE 7: OUR STORY ===== -->
+<div class="page" id="p7">
+  <h2>Our Story 💑</h2>
+ <div class="timeline" id="timeline">
+    <div class="t-item">
+        <div class="t-date">Jan 13</div>
+        <div class="t-title">💬 First Chat</div>
+        <div class="t-desc">Aadyam oru hey thudangiye message... annu njan vicharichilla ni yende jeevan aavumenn dii.</div>
+    </div>
+    <div class="t-item">
+        <div class="t-date">The Voice</div>
+        <div class="t-title">📞 First Call</div>
+        <div class="t-desc">Ninna njan adhyam vilichappo ni karayunnath ann indeye but aa timil yendh parayande yenn yenik kittitta</div>
+    </div>
+    <div class="t-item">
+        <div class="t-date">Feb 7</div>
+        <div class="t-title">🌹 First Meet</div>
+        <div class="t-desc">Nammal nerittu kanda aa divasam. Nerittu kandappozhulla aa cheriya pediyum santhoshavum onnum eppozhum marakkilla.</div>
+    </div>
+    <div class="t-item">
+        <div class="t-date">Midnight Routine</div>
+        <div class="t-title">🌙 Muthe Muthe & Calls</div>
+        <div class="t-desc">Aa evening ulla ninde orakkavum, nee pedichittu 'Adhii...' enn vilikkunnathum... entho oru prathyega vibe-a.</div>
+    </div>
+    <div class="t-item">
+        <div class="t-date">Now & Always</div>
+        <div class="t-title">💕 Ennum Nammal</div>
+        <div class="t-desc">Life-il ippo nammal ethra doorath aanenghilum, namude kalyanam kazhinju orumichu jeevikkunna aa divasathinaayi ee Adhii ippozhe waiting-a dii.</div>
+    </div>
+</div>
+  <button class="btn" onclick="goTo(7)" style="margin-top:8px">Memory Book 📖</button>
+</div>
+
+<!-- ===== PAGE 8: MEMORY BOOK ===== -->
+<div class="page" id="p8">
+  <h2>Memory Book 📖</h2>
+  <div class="memory-grid">
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/1.jpeg','Kuttachuuuu💋')"><div class="mem-photo"><span>🌹</span><img src="img/her_work/1.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">Ninak Njan adhyam vagichath</div><div class="mem-desc">Ninak njan ith vagich therumbam njan vicharichilla ni yende pen avum yenn.<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/2.jpeg','Letter 💋')"><div class="mem-photo"><span>🌙</span><img src="img/her_work/2.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">Ith ninde randamathe gift</div><div class="mem-desc">Adi ayappo thanne letter.<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/3.jpeg','Ninde aniyathi thooki😂')"><div class="mem-photo"><span>💑</span><img src="img/her_work/3.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">Ni yenik vendi yeyuthiya book</div><div class="mem-desc">Ninde aniyathi Thookiyeram thannath😂.<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/4.jpeg','Ni yenik thanna ninde works')"><div class="mem-photo"><span>🎂</span><img src="img/her_work/4.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">Ni yenik vendi thanna ninde pazhe works</div><div class="mem-desc">Di onnude yellam thudagikoode?<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/5.jpeg','Letter therum yenn predheshichilla 💕')"><div class="mem-photo"><span>✈️</span><img src="img/her_work/5.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">I love you too 💕</div><div class="mem-desc">Ith kandappo yendha yenn areela manasil nalla oru sandhosham<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+    <div class="memory-card" onclick="openPhotoModal('img/her_work/6.jpeg','Njan vagich thanna kinder joy kond ni indakkiyath 💕')"><div class="mem-photo"><span>💕</span><img src="img/her_work/6.jpeg" alt="" onerror="this.style.display='none'"></div><div class="mem-info"><div class="mem-title">Ni yenik vendi akkiyath</div><div class="mem-desc">Di yenik ninna orupad istam aan taa i love you 💕<br><span style="font-size:.52rem;opacity:.5"></span></div></div></div>
+  </ div>
+  <p class="ph-hint">UMAAWWWWWWWWWWWWWWWWWWWWW💋💋💋💋💋💋💋</p>
+  <button class="btn" onclick="goTo(8)" style="margin-top:8px">Her Favourite Songs 🎵</button>
+</div>
+
+<!-- ===== PAGE 9: 2 FAVOURITE SONGS ===== -->
+<div class="page" id="p9">
+  <h2>Her Favourite Songs 🎵</h2>
+  <div class="song-player">
+    <div class="song-tabs">
+      <button class="song-tab active" onclick="switchSong(0,this)" id="tab0">Song 1</button>
+      <button class="song-tab" onclick="switchSong(1,this)" id="tab1">Song 2</button>
+    </div>
+    <div class="song-cover" id="songCover">🎵</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1rem,3.5vw,1.3rem);" id="songTitle"></div>
+    <div style="color:var(--text-dim);font-size:.8rem;margin:3px 0 12px;" id="songArtist"></div>
+    <audio id="audioPlayer" preload="none"></audio>
+    <div class="player-btns">
+      <button onclick="audioPlayer.currentTime=Math.max(0,audioPlayer.currentTime-10)">⏮</button>
+      <button id="playBtn" onclick="togglePlay()">▶</button>
+      <button onclick="audioPlayer.currentTime=Math.min(audioPlayer.duration||0,audioPlayer.currentTime+10)">⏭</button>
+    </div>
+    <div class="prog-bar" onclick="seekAudio(event)"><div class="prog-fill" id="progFill"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-dim);"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+    <div class="lyrics-box" id="lyricsBox"></div>
+    <p style="font-size:.6rem;color:var(--text-dim);margin-top:8px;">💡 Add: music/song1.mp3 &amp; music/song2.mp3</p>
+  </div>
+  <p class="quote" style="max-width:340px;margin-top:10px">"Our song plays and it's you I see."</p>
+  <button class="btn" onclick="goTo(9)">30 Reasons I Love You 💖</button>
+</div>
+
+<!-- ===== PAGE 10: REASONS ===== -->
+<div class="page" id="p10">
+  <h2>Reasons I Love You 💖</h2>
+  <div class="reason-card">
+    <div class="reason-num" id="rNum">Reason 1 of 30</div>
+    <div class="reason-text" id="rText"></div>
+  </div>
+  <div class="r-nav">
+    <button class="btn btn-outline" onclick="prevReason()" style="padding:9px 18px;font-size:.95rem;margin:0;">← Prev</button>
+    <div class="r-prog"><div class="r-prog-fill" id="rProg" style="width:3.3%"></div></div>
+    <button class="btn" onclick="nextReason()" style="padding:9px 18px;font-size:.95rem;margin:0;">Next →</button>
+  </div>
+  <button class="btn" onclick="goTo(10)" style="margin-top:8px">Things I Adore →</button>
+</div>
+
+<!-- ===== PAGE 11: ADORE ===== -->
+<div class="page" id="p11">
+  <h2>Things I Adore About You 🌸</h2>
+  <div class="adore-grid" id="adoreGrid">
+    <div class="adore-card">
+        <span class="adore-icon">😊</span>
+        <div class="adore-title">Ninte Chiri</div>
+        <div class="adore-desc">Ee lokath njan kanda ettavum nalla kazhcha ninte aa chiri mathram aanu.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">🎶</span>
+        <div class="adore-title">Ninte Shabdam</div>
+        <div class="adore-desc">Ni oragunna timil adhii yenn vilikkunille aa sounf ufff ente sirrreee veenu pokum njan athi.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">👁️</span>
+        <div class="adore-title">Ninte Kannukal</div>
+        <div class="adore-desc">Aa kannukalil nokki irikkaan enikk orupad ishtama, athil njan eppozhum lost aayi pokum.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">💛</span>
+        <div class="adore-title">Ninte Nalla Manass</div>
+        <div class="adore-desc">Nee ellaarkkum vendi kodukkunna aa care ninte manassinte azhaku kaanichu tharunnu.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">✨</span>
+        <div class="adore-title">Ninte Personality</div>
+        <div class="adore-desc">Nee oru cheriya kuttiye pole kouthukathil samsarikkunnath kaanan nalla rasama.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">🤝</span>
+        <div class="adore-title">Ninte Support</div>
+        <div class="adore-desc">Ente swapnangalkkum sankalpangalkkum nee koode nilkkunnath ente valiya bhagyama.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">😂</span>
+        <div class="adore-title">Ninte Aa Chiri</div>
+        <div class="adore-desc">Nee nalla manassode chirippikkumbozhum samsarikkumbozhum ente ella veshmavum maarum.</div>
+    </div>
+    <div class="adore-card">
+        <span class="adore-icon">💪</span>
+        <div class="adore-title">Ninte Karuth</div>
+        <div class="adore-desc">Ethra prathasandhikal vannalum nee face cheyyunna aa reethi enikk oru prachodanam aanu.</div>
+    </div>
+</div>
+  <button class="btn" onclick="goTo(11)" style="margin-top:12px">Love Quiz 💘</button>
+</div>
+
+<!-- ===== PAGE 12: QUIZ ===== -->
+<div class="page" id="p12">
+  <h2>Our Love Quiz 💘</h2>
+  <div class="quiz-card">
+    <div class="quiz-q" id="quizQ"></div>
+    <div class="quiz-opts" id="quizOpts"></div>
+    <div id="quizResult" style="display:none;text-align:center;margin-top:12px;">
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold-light);" id="quizScore"></div>
+      <p style="font-family:'Dancing Script',cursive;font-size:1.1rem;margin-top:6px;" id="quizMsg"></p>
+    </div>
+  </div>
+  <button class="btn" onclick="goTo(12)" style="margin-top:12px">Why You Mean Everything →</button>
+</div>
+
+<!-- ===== PAGE 13: WHY EVERYTHING ===== -->
+<div class="page" id="p13">
+  <h2>Why You Mean Everything 💞</h2>
+  <div class="glass-card" style="max-width:520px;">
+    <p class="glow-text">
+    Edi, nee chumma ente girlfriend mathram alla — ee tension-um thirakkum niranju life-il enikk ulla ore oru samadhanama nee. <br><br>
+
+    Ente ella vishhamangalkkum thunayaayi nee koode ninnittund. Njan cheriya cheriya karyangal jayikkumbozh polum ath nammude valiya kaaryamaayi nee celebrate cheyyarund. <br><br>
+
+    Nee koode ullappozhaa ee Adhii-kk life-il oru poornath thonunnath. Vere aareyum ninakku pakaram vekkan ee lokathilla dii. Nee enikk ellamaanu.
+  </p> 
+</div>
+  <button class="btn" onclick="goTo(13)">My Confession 🌙</button>
+</div>
+
+<!-- ===== PAGE 14: CONFESSION ===== -->
+<div class="page" id="p14" style="position:relative;">
+  <div class="heartbeat-bg"></div>
+  <h2 style="position:relative;z-index:2;">My Confession 🌙</h2>
+  <div class="glass-card" style="max-width:490px;position:relative;z-index:2;">
+    <p style="font-family:'Dancing Script',cursive;font-size:clamp(1rem,3.5vw,1.25rem);line-height:2;text-align:center;">Njan ennum parayan baaki vecha oru kaaryam ippo mukgathu nokki paraya di:<br><br>
+
+          Ee Adhii-kk ninnodu athraykkum bhayangaramaaya sneham aanu di, athil ippo oru maattavum illa.<br><br>
+
+          Chumma ee Valentine's Day-il mathram alla — oro divasavum, njan cheyyunna oro cheriya kaaryangalil polum ath ninnodu thonnarund.<br><br>
+
+          Ravile unaru mbozhum rathri 'Muthe Muthe' paattu kett urangan kidakkumbozhum ente manassil aadyam varunnath ninte aa mukhama di.<br><br>
+
+          Life-il ennum ith ingane reproducible aayi thodaranam enna ente aagraham. ❤️
+    </p>
+  </div>
+  <button class="btn" onclick="goTo(14)" style="position:relative;z-index:2;">Future Dreams 🌟</button>
+</div>
+
+<!-- ===== PAGE 15: FUTURE DREAMS ===== -->
+<div class="page" id="p15">
+  <h2>Our Future Dreams 🌟</h2>
+  <div class="dreams-grid">
+  <div class="dream-card">
+    <span class="dream-icon">✈️</span>
+    <div class="dream-title">Onnichulla Yathrakal</div>
+    <div class="dream-desc">Paris-um Maldives-um onnum venda dii, ninte koode evide poyalum athu mathi enikk.</div>
+  </div>
+  <div class="dream-card">
+    <span class="dream-icon">🏡</span>
+    <div class="dream-title">Nammude Veedu</div>
+    <div class="dream-desc">Nammal kalyanam kazhinju orumichu thamasikkunna, nalla rasamulla oru cheriya lokam.</div>
+  </div>
+  <div class="dream-card">
+    <span class="dream-icon">💍</span>
+    <div class="dream-title">Ennum Ente Swantham</div>
+    <div class="dream-desc">Aa valiya chodyam ninnodu chodikkunna aa divasathinaayi ee Adhii wait cheyyuvaa.</div>
+  </div>
+  <div class="dream-card">
+    <span class="dream-icon">🌅</span>
+    <div class="dream-title">Koode Undavanam</div>
+    <div class="dream-desc">Vayassaayaalum ninte aa kai pidichu enikk ingane thodaranam dii.</div>
+  </div>
+  <div class="dream-card">
+    <span class="dream-icon">⭐</span>
+    <div class="dream-title">Pala Plan-ukal</div>
+    <div class="dream-desc">Road trips-um spontaneous plans-um... ninte koode ulla oro nimishavum adipoli aakkanam.</div>
+  </div>
+  <div class="dream-card">
+    <span class="dream-icon">📖</span>
+    <div class="dream-title">Nammude Kadha</div>
+    <div class="dream-desc">Janavari 13-nu thudangiya nammude ee kadhayil iniyum nalla nalla chapters ezhuthanam.</div>
+  </div>
+</div>
+  <button class="btn" onclick="goTo(15)" style="margin-top:12px">Love Coupons 🎫</button>
+</div>
+
+<!-- ===== PAGE 16: COUPONS ===== -->
+<div class="page" id="p16">
+  <h2>Love Coupons For You 🎫</h2>
+  <div class="coupons-wrap">
+    <div class="coupon"><div class="coupon-icon">🤗</div><div><div class="coupon-title">Unlimited Hugs</div><div class="coupon-sub">Redeemable anytime, always</div></div><button class="coupon-redeem" onclick="redeem('Unlimited Hugs')">Redeem</button></div>
+    <div class="coupon"><div class="coupon-icon">🎬</div><div><div class="coupon-title">Movie Date Night</div><div class="coupon-sub">Popcorn, blanket & you</div></div><button class="coupon-redeem" onclick="redeem('Movie Date')">Redeem</button></div>
+    <div class="coupon"><div class="coupon-icon">📞</div><div><div class="coupon-title">Long Call Session</div><div class="coupon-sub">Talk until we fall asleep</div></div><button class="coupon-redeem" onclick="redeem('Long Call')">Redeem</button></div>
+    <div class="coupon"><div class="coupon-icon">🎁</div><div><div class="coupon-title">Special Surprise</div><div class="coupon-sub">Something just for you</div></div><button class="coupon-redeem" onclick="redeem('Special Surprise')">Redeem</button></div>
+    <div class="coupon"><div class="coupon-icon">🍰</div><div><div class="coupon-title">Favourite Treat</div><div class="coupon-sub">Your choice, always</div></div><button class="coupon-redeem" onclick="redeem('Favourite Treat')">Redeem</button></div>
+  </div>
+  <button class="btn" onclick="goTo(16)" style="margin-top:12px">From My Heart 💗</button>
+</div>
+
+<!-- ===== PAGE 17: MESSAGE ===== -->
+<div class="page" id="p17">
+  <h2>Message From My Heart 💗</h2>
+  <div class="glass-card" style="max-width:530px;">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.9rem,3vw,1.1rem);line-height:2;text-align:center;" id="heartMsg"></p>
+    <span class="cursor-blink" id="msgCursor"></span>
+  </div>
+  <button class="btn" onclick="goTo(17)" style="margin-top:12px">Secret Page 🔐</button>
+</div>
+
+<!-- ===== PAGE 18: SECRET ===== -->
+<div class="page" id="p18">
+  <h2>🔐 Secret Page</h2>
+  <div class="secret-form" id="secretForm">
+    <p style="font-family:'Dancing Script',cursive;font-size:.95rem;color:var(--text-dim);text-align:center;">Protected by love…</p>
+    <p class="hint">💡 Hint: Ni yendh vilikkumbam ann njan blush adikkal? (lowercase)</p>
+    <input type="text" id="secretInput" placeholder="Enter password…">
+    <button class="btn" onclick="checkSecret()">Unlock 🔓</button>
+  </div>
+  <div id="secretMsg" style="display:none;" class="glass-card">
+    <p style="font-family:'Dancing Script',cursive;font-size:clamp(.95rem,3.5vw,1.2rem);line-height:2;color:var(--gold-light);text-align:center;">🌹 You found it!<br><br>Njan ninnodu sneham thonniya aa nimisham, athu oru sadharana divasam aayirunnu — pakshe ellam maari marinju dii. Nee ninte reethiyil samsarichu koode ninnu, athu mathrayirunnu enikk vendathum. ummwwaaa~ 😘<br><br>
+
+  Oru software-inte password-in polum protect cheyyan kazhiyatha athra sneham ee Adhii-kk ente Kuttaa-nodundu dii. Big ummwwaaa ummwwaaa!!! ❤️💋
+</p>
+ </div>
+  <button class="btn" onclick="goTo(18)" style="margin-top:12px">Appreciation 💐</button>
+</div>
+
+<!-- ===== PAGE 19: APPRECIATION ===== -->
+<div class="page" id="p19">
+  <h2>Thank You 💐</h2>
+  <div class="thanks-list" id="thanksList">
+    <div class="thanks-item"><div class="t-icon">💪</div><div class="t-text"><strong>For your Support</strong><br>You've cheered me on through every dream and doubt.</div></div>
+    <div class="thanks-item"><div class="t-icon">🕊️</div><div class="t-text"><strong>For your Patience</strong><br>When I was difficult, you stayed calm and kind.</div></div>
+    <div class="thanks-item"><div class="t-icon">❤️</div><div class="t-text"><strong>For your Love</strong><br>Pure, unconditional, and real. Never taken for granted.</div></div>
+    <div class="thanks-item"><div class="t-icon">🌷</div><div class="t-text"><strong>For your Care</strong><br>The little things you do add up to everything.</div></div>
+    <div class="thanks-item"><div class="t-icon">🧠</div><div class="t-text"><strong>For Understanding</strong><br>You see me — truly — and love me anyway.</div></div>
+    <div class="thanks-item"><div class="t-icon">🌟</div><div class="t-text"><strong>For being You</strong><br>The greatest gift in my life is simply you.</div></div>
+  </div>
+  <button class="btn" onclick="goTo(19)" style="margin-top:12px">Forever ♾️</button>
+</div>
+
+<!-- ===== PAGE 20: FOREVER ===== -->
+<div class="page" id="p20" style="position:relative;overflow:hidden;">
+  <canvas id="foreverCanvas"></canvas>
+  <div class="forever-text">
+    <h1>My Love For You Is Endless ❤️</h1>
+    <p class="quote" style="margin-top:14px;font-size:clamp(.9rem,3.5vw,1.15rem);">"Not just today, not just tomorrow — always."</p>
+    <button class="btn" onclick="goTo(20)" style="margin-top:18px">The Proposal 🌹</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 21: PROPOSAL ===== -->
+<div class="page" id="p21" style="position:relative;overflow:hidden;">
+  <canvas id="fireworkCanvas"></canvas>
+  <div class="proposal-content">
+    <div class="proposal-heart">❤️</div>
+    <div class="proposal-text">Will You Be My Valentine? ❤️</div>
+    <p class="quote" style="max-width:320px">"In a sea of people, my eyes will always search for you."</p>
+    <div class="yes-no">
+      <button class="btn" style="background:linear-gradient(135deg,#e8305a,#8b1a3a);padding:13px 36px;" onclick="sayYes()">Yes, Always! 💕</button>
+      <button class="btn btn-outline" id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()" style="padding:11px 24px;font-size:clamp(.85rem,3vw,1rem);">Maybe… 😅</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE 22: ENDING ===== -->
+<div class="page" id="p22">
+  <div class="slideshow" id="slideshow">
+    <div class="slide active"><div class="slide-icon">🌹</div><div class="slide-cap">The day we met</div></div>
+    <div class="slide"><div class="slide-icon">💬</div><div class="slide-cap">Our first conversation</div></div>
+    <div class="slide"><div class="slide-icon">🌙</div><div class="slide-cap">Endless late nights</div></div>
+    <div class="slide"><div class="slide-icon">🎂</div><div class="slide-cap">Celebrating you, always</div></div>
+    <div class="slide"><div class="slide-icon">💑</div><div class="slide-cap">Us — together</div></div>
+    <div class="slide"><div class="slide-icon">♾️</div><div class="slide-cap">Forever & always — you & me</div></div>
+  </div>
+  <div class="ending-msg">I Love You Today, Tomorrow,<br>And Forever ❤️</div>
+  <p class="quote" style="margin-top:10px;max-width:340px">"You are my favourite everything."</p>
+  <button class="btn" onclick="goTo(0)" style="margin-top:14px">Back to Start 🌹</button>
+</div>
+
+<script>
+// ============================================================
+//  READ CONFIG (defined at top of file in the <head> block)
+// ============================================================
+const UNLOCK = new Date(
+  CONFIG.UNLOCK_YEAR,
+  CONFIG.UNLOCK_MONTH - 1,   // JS months are 0-based
+  CONFIG.UNLOCK_DAY,
+  0, 0, 0
+);
+
+// Update the label on the lock screen
+document.getElementById('lockDateLabel').textContent =
+  '💝 ' + UNLOCK.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) + ' 💝';
+
+// ============================================================
+//  DATE CHECK — show lock or open site
+// ============================================================
+function checkDate() {
+  const now = new Date();
+  if (now >= UNLOCK) {
+    // It's Valentine's Day or later — open the site!
+    document.getElementById('lockScreen').classList.add('hidden');
+    document.getElementById('loading').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('loading').classList.add('hidden');
+      spawnFloatingHearts();
+      startBg();
+      initSongs();
+      updateReason();
+    }, 2000);
+  } else {
+    // Not yet — show countdown
+    startLockCountdown();
+  }
+}
+checkDate();
+
+// ============================================================
+//  LOCK SCREEN COUNTDOWN
+// ============================================================
+function startLockCountdown() {
+  function update() {
+    const diff = UNLOCK - new Date();
+    if (diff <= 0) { checkDate(); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('lk-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('lk-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('lk-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('lk-s').textContent = String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+// ============================================================
+//  CURSOR
+// ============================================================
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+document.addEventListener('touchmove', e => { cursor.style.left=e.touches[0].clientX+'px'; cursor.style.top=e.touches[0].clientY+'px'; },{passive:true});
+
+// ============================================================
+//  STARS
+// ============================================================
+for(let i=0;i<55;i++){
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*2.5+.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${1.5+Math.random()*2}s;`;
+  document.body.appendChild(s);
+}
+
+// ============================================================
+//  BG CANVAS
+// ============================================================
+const bgCanvas=document.getElementById('bgCanvas');
+const bgCtx=bgCanvas.getContext('2d');
+let bps=[];
+function resizeBg(){bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;}
+resizeBg(); window.addEventListener('resize',resizeBg);
+function mkP(){return{x:Math.random()*bgCanvas.width,y:Math.random()*bgCanvas.height,vx:(Math.random()-.5)*.3,vy:-(Math.random()*.6+.2),life:1,decay:Math.random()*.005+.002,size:Math.random()*4+2,type:Math.random()>.5?'heart':'dot',hue:Math.random()*40+340};}
+for(let i=0;i<35;i++)bps.push(mkP());
+function drawH(ctx,x,y,size,alpha,hue){ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=`hsl(${hue},80%,65%)`;ctx.translate(x,y);ctx.beginPath();const s=size/10;ctx.moveTo(0,-s);ctx.bezierCurveTo(s,-s*2,s*3,0,0,s*2.5);ctx.bezierCurveTo(-s*3,0,-s,-s*2,0,-s);ctx.fill();ctx.restore();}
+function startBg(){
+  (function ab(){
+    bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+    const g=bgCtx.createRadialGradient(bgCanvas.width/2,bgCanvas.height/2,0,bgCanvas.width/2,bgCanvas.height/2,bgCanvas.width*.7);
+    g.addColorStop(0,'#1a0520');g.addColorStop(1,'#0d0008');
+    bgCtx.fillStyle=g;bgCtx.fillRect(0,0,bgCanvas.width,bgCanvas.height);
+    bps.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;if(p.life<=0||p.y<-20)bps[i]=mkP();if(p.type==='heart')drawH(bgCtx,p.x,p.y,p.size*2,p.life*.5,p.hue);else{bgCtx.save();bgCtx.globalAlpha=p.life*.4;bgCtx.fillStyle=`hsl(${p.hue},80%,70%)`;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.size,0,Math.PI*2);bgCtx.fill();bgCtx.restore();}});
+    requestAnimationFrame(ab);
+  })();
+}
+
+// ============================================================
+//  FLOATING HEARTS
+// ============================================================
+function spawnFloatingHearts(){setInterval(()=>{const h=document.createElement('div');h.className='float-heart';h.textContent=['❤️','💕','💗','💖','💓','🌹'][Math.floor(Math.random()*6)];h.style.left=Math.random()*90+5+'vw';h.style.bottom='0';h.style.animationDuration=(3+Math.random()*3)+'s';h.style.fontSize=(.8+Math.random()*.8)+'rem';document.body.appendChild(h);setTimeout(()=>h.remove(),5000);},1400);}
+function spawnHeart(){const h=document.createElement('div');h.className='float-heart';h.textContent='❤️';h.style.left=30+Math.random()*40+'vw';h.style.bottom='20%';h.style.fontSize=(1+Math.random())+'rem';h.style.animationDuration='2.5s';document.body.appendChild(h);setTimeout(()=>h.remove(),3000);}
+
+// ============================================================
+//  MUSIC TOGGLE (ambient)
+// ============================================================
+let musicOn=false,audioCtx2,gainNode2;
+document.getElementById('musicBtn').addEventListener('click',()=>{
+  musicOn=!musicOn;
+  document.getElementById('musicBtn').textContent=musicOn?'🔊':'🎵';
+  if(musicOn&&!audioCtx2)startAmbient();
+  else if(musicOn&&audioCtx2)audioCtx2.resume();
+  else if(!musicOn&&audioCtx2)audioCtx2.suspend();
+});
+function startAmbient(){try{audioCtx2=new(window.AudioContext||window.webkitAudioContext)();gainNode2=audioCtx2.createGain();gainNode2.gain.value=.03;gainNode2.connect(audioCtx2.destination);const ns=[261.63,293.66,329.63,349.23,392,440,493.88];let ni=0;function pn(){if(!musicOn)return;const o=audioCtx2.createOscillator();o.type='sine';o.frequency.value=ns[ni%ns.length];ni++;o.connect(gainNode2);o.start();o.stop(audioCtx2.currentTime+.4);setTimeout(pn,600);}pn();}catch(e){}}
+
+// ============================================================
+//  PAGES
+// ============================================================
+const pages=document.querySelectorAll('.page');
+const pageNames=['Welcome','Her Photos','Her Videos','Us Together','Us Together Videos','Love Letter','Our Story','Memory Book','Fav Songs','30 Reasons','I Adore You','Love Quiz','Why Everything','My Confession','Future Dreams','Love Coupons','From My Heart','Secret','Appreciation','Forever','Proposal','Ending'];
+let currentPage=0;
+
+function goTo(idx){
+  if(idx<0||idx>=pages.length)return;
+  const prev=currentPage;
+  pages[prev].classList.add('exit-up');
+  setTimeout(()=>{
+    pages[prev].classList.remove('active','exit-up');
+    currentPage=idx;
+    pages[idx].classList.add('active');
+    document.getElementById('pgNum').textContent=`${idx+1} / 22`;
+    document.getElementById('pgInd').textContent=pageNames[idx]||'';
+    onEnter(idx);
+  },500);
+}
+document.getElementById('nextBtn').addEventListener('click',()=>{if(currentPage<pages.length-1)goTo(currentPage+1);});
+document.getElementById('prevBtn').addEventListener('click',()=>{if(currentPage>0)goTo(currentPage-1);});
+
+let tsx=0,tsy=0;
+document.addEventListener('touchstart',e=>{tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tsx;
+  const dy=e.changedTouches[0].clientY-tsy;
+  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>55){
+    if(dx<0&&currentPage<pages.length-1)goTo(currentPage+1);
+    else if(dx>0&&currentPage>0)goTo(currentPage-1);
+  }
+},{passive:true});
+
+function onEnter(idx){
+  if(idx===5)startTypewriter();
+  if(idx===6)animateTimeline();
+  if(idx===10)animateAdore();
+  if(idx===11)startQuiz();
+  if(idx===16)startMsgTypewriter();
+  if(idx===18)animateThanks();
+  if(idx===19)startForeverCanvas();
+  if(idx===20)startFireworks();
+  if(idx===21)startSlideshow();
+}
+
+// ============================================================
+//  VIDEO GALLERY
+// ============================================================
+// ============================================================
+//  VIDEO DATA
+//  ────────────────────────────────────────────────────────────
+//  TO ADD A NEW VIDEO: just add one line below, then place the
+//  matching file in the folder. Nothing else needs to change —
+//  thumbnails, numbering, and the counter all update automatically.
+// ============================================================
+const videoData = [
+  {src:'video/her/1.mp4',  title:'cutieee 😊'},
+  {src:'video/her/2.mp4',  title:'ninde cute song🌸'},
+  {src:'video/her/3.mp4',  title:'yende kiss ann ath 😂❤️'},
+  {src:'video/her/4.mp4',  title:'ninde kann 👁️💫✨'},
+  {src:'video/her/5.mp4',  title:'pretham faaaaa'},
+  {src:'video/her/6.mp4',  title:'Ninnod njan mindula 💕'},
+  {src:'video/her/7.mp4',  title:'faaaa 😂'},
+  {src:'video/her/8.mp4',  title:'Naranga'},
+  {src:'video/her/9.mp4',  title:'yende ammmunooooo 😍'},
+  {src:'video/her/10.mp4', title:'ninde aa chiri 😂😂'},
+  {src:'video/her/11.mp4', title:'Ninde Mudi'},
+  {src:'video/her/12.mp4', title:'uff yende penn💖'},
+  {src:'video/her/13.mp4', title:'Just being herself ✨'},
+  {src:'video/her/14.mp4', title:'Vlog faaaaa 😂'},
+  {src:'video/her/15.mp4', title:'Umwaaaaa💕'},
+  {src:'video/her/16.mp4', title:'Pavam chekkan 😂🌟'},
+  {src:'video/her/17.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/18.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/19.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/20.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/21.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/22.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/23.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/24.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/25.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/26.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/27.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/28.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/29.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/30.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/31.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/30.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/her/31.mp4', title:'❤️❤️❤️❤️'},
+  // {src:'video/her/22.mp4', title:'Add your next caption here 💕'},  ← copy this line to add more
+];
+const usVideoData = [
+  {src:'video/us/1.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/2.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/3.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/4.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/5.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/6.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/7.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/8.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/9.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/10.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/11.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/12.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/13.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/14.mp4', title:'❤️❤️❤️❤️💖'},
+  {src:'video/us/15.mp4', title:'💖💖💖💖'},
+  {src:'video/us/16.mp4', title:'💖💖💖💖'},
+  {src:'video/us/17.mp4', title:'💖💖💖💖'},
+  {src:'video/us/18.mp4', title:'💖💖💖💖'},
+  {src:'video/us/19.mp4', title:'💖💖💖💖'},
+  {src:'video/us/20.mp4', title:'❤️❤️❤️❤️'},
+  {src:'video/us/21.mp4', title:'❤️❤️❤️❤️'},
+  // {src:'video/us/22.mp4', title:'Add your next caption here 💕'},   ← copy this line to add more
+];
+
+// ============================================================
+//  AUTO-RENDER THUMBNAILS — builds the gallery grid from the
+//  arrays above. No HTML editing needed when videos are added.
+// ============================================================
+function renderVideoGallery(containerId, data, openFnName) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = data.map((v, i) => `
+    <div class="video-thumb" onclick="${openFnName}(${i})">
+      <video src="${v.src}" muted playsinline preload="metadata"></video>
+      <div class="vt-overlay"><div class="vt-play">▶️</div><div class="vt-label">${v.title}</div></div>
+      <div class="vt-num">${i + 1}</div>
+    </div>
+  `).join('');
+}
+renderVideoGallery('videoGallery', videoData, 'openVid');
+renderVideoGallery('videoGalleryTogether', usVideoData, 'openUsVid');
+
+// ============================================================
+//  VIDEO PLAYBACK — waits for the video to actually be ready
+//  before calling play(), instead of a blind timeout. This is
+//  what fixes "modal opens but video doesn't play".
+// ============================================================
+let currentVidIdx = 0;
+let currentVideoList = videoData;
+let currentOpenFn = 'openVid';
+
+function openCurrentVideo() {
+  const modal    = document.getElementById('vidModal');
+  const spinner  = document.getElementById('vidSpinner');
+  const oldPlayer = document.getElementById('vidModalPlayer');
+  const video    = currentVideoList[currentVidIdx];
+
+  modal.classList.add('open');
+  if (spinner) spinner.classList.add('show');
+
+  // Fully reset the <video> element by cloning it — this avoids
+  // stale-state bugs in some mobile browsers when reusing one element.
+  const newPlayer = oldPlayer.cloneNode(false);
+  newPlayer.setAttribute('controls', '');
+  newPlayer.setAttribute('playsinline', '');
+  newPlayer.setAttribute('webkit-playsinline', 'true');
+  newPlayer.setAttribute('x5-playsinline', 'true');
+  newPlayer.setAttribute('preload', 'auto');
+  oldPlayer.parentNode.replaceChild(newPlayer, oldPlayer);
+
+  document.getElementById('vmTitle').textContent   = video.title;
+  document.getElementById('vmCounter').textContent = `${currentVidIdx + 1} / ${currentVideoList.length}`;
+
+  newPlayer.src = video.src;
+
+  newPlayer.addEventListener('canplay', function onReady() {
+    newPlayer.removeEventListener('canplay', onReady);
+    if (spinner) spinner.classList.remove('show');
+    newPlayer.play().catch(() => { if (spinner) spinner.classList.remove('show'); });
+  });
+  newPlayer.addEventListener('error', () => { if (spinner) spinner.classList.remove('show'); });
+  // Safety net: hide spinner even if no event fires in time
+  setTimeout(() => { if (spinner) spinner.classList.remove('show'); }, 3000);
+
+  newPlayer.load();
+}
+
+function openVid(idx) {
+  currentVideoList = videoData;
+  currentOpenFn = 'openVid';
+  currentVidIdx = idx;
+  openCurrentVideo();
+}
+function openUsVid(idx) {
+  currentVideoList = usVideoData;
+  currentOpenFn = 'openUsVid';
+  currentVidIdx = idx;
+  openCurrentVideo();
+}
+function vidNav(dir) {
+  const player = document.getElementById('vidModalPlayer');
+  player.pause();
+  currentVidIdx = (currentVidIdx + dir + currentVideoList.length) % currentVideoList.length;
+  openCurrentVideo();
+}
+function closeVidModal() {
+  const player = document.getElementById('vidModalPlayer');
+  try { player.pause(); player.removeAttribute('src'); player.load(); } catch(e) {}
+  const spinner = document.getElementById('vidSpinner');
+  if (spinner) spinner.classList.remove('show');
+  document.getElementById('vidModal').classList.remove('open');
+}
+document.getElementById('vidModal').addEventListener('click', function(e){ if(e.target===this)closeVidModal(); });
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && document.getElementById('vidModal').classList.contains('open')) closeVidModal();
+});
+
+// ============================================================
+//  PHOTO MODAL
+// ============================================================
+function openPhotoModal(imgSrc, cap) {
+  const ph=document.getElementById('modalPlaceholder');
+  const img=document.getElementById('modalImg');
+  document.getElementById('modalCap').textContent=cap||'A beautiful memory 💕';
+  img.onload=()=>{img.style.display='block';ph.style.display='none';};
+  img.onerror=()=>{img.style.display='none';ph.style.display='flex';document.getElementById('modalIcon').textContent='📷';};
+  img.src=imgSrc;
+  if(!imgSrc){img.style.display='none';ph.style.display='flex';}
+  document.getElementById('photoModal').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('photoModal').classList.remove('open');
+  document.getElementById('modalImg').src='';
+}
+document.getElementById('photoModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ============================================================
+//  SONGS — loaded from CONFIG
+// ============================================================
+const songs = [
+  {title:CONFIG.SONG1_TITLE, artist:CONFIG.SONG1_ARTIST, file:CONFIG.SONG1_FILE, lyrics:CONFIG.SONG1_LYRICS},
+  {title:CONFIG.SONG2_TITLE, artist:CONFIG.SONG2_ARTIST, file:CONFIG.SONG2_FILE, lyrics:CONFIG.SONG2_LYRICS},
+];
+let currentSong=0, isPlaying=false;
+const audioPlayer = document.getElementById('audioPlayer');
+
+function initSongs(){ switchSong(0, document.getElementById('tab0')); }
+
+function switchSong(idx, tabEl) {
+  currentSong=idx;
+  document.querySelectorAll('.song-tab').forEach(t=>t.classList.remove('active'));
+  if(tabEl)tabEl.classList.add('active');
+  const s=songs[idx];
+  document.getElementById('songTitle').textContent=s.title;
+  document.getElementById('songArtist').textContent=s.artist;
+  document.getElementById('lyricsBox').innerHTML=s.lyrics.replace(/\n/g,'<br>');
+  audioPlayer.src=s.file;
+  isPlaying=false;
+  document.getElementById('playBtn').textContent='▶';
+  document.getElementById('songCover').classList.remove('playing');
+  document.getElementById('progFill').style.width='0%';
+  document.getElementById('curTime').textContent='0:00';
+  document.getElementById('durTime').textContent='0:00';
+}
+
+function togglePlay(){
+  if(isPlaying){audioPlayer.pause();isPlaying=false;document.getElementById('playBtn').textContent='▶';document.getElementById('songCover').classList.remove('playing');}
+  else{audioPlayer.play().then(()=>{isPlaying=true;document.getElementById('playBtn').textContent='⏸';document.getElementById('songCover').classList.add('playing');}).catch(()=>{});}
+}
+
+function fmtTime(s){const m=Math.floor(s/60);return`${m}:${String(Math.floor(s%60)).padStart(2,'0')}`;}
+audioPlayer.addEventListener('timeupdate',()=>{
+  if(audioPlayer.duration){
+    document.getElementById('progFill').style.width=(audioPlayer.currentTime/audioPlayer.duration*100)+'%';
+    document.getElementById('curTime').textContent=fmtTime(audioPlayer.currentTime);
+    document.getElementById('durTime').textContent=fmtTime(audioPlayer.duration);
+  }
+});
+audioPlayer.addEventListener('ended',()=>{isPlaying=false;document.getElementById('playBtn').textContent='▶';document.getElementById('songCover').classList.remove('playing');});
+
+function seekAudio(e){
+  const bar=e.currentTarget;
+  const ratio=e.offsetX/bar.offsetWidth;
+  if(audioPlayer.duration)audioPlayer.currentTime=ratio*audioPlayer.duration;
+}
+
+// ============================================================
+//  TYPEWRITER — LOVE LETTER
+// ============================================================
+const letterTxt = `Ente Kuttaa,\n\nNinnodulla sneham parayan ulla vakkukal kandethan njan orupad alochichu, pakshe ninnodu enikkulla sneham muzhuvan parayan mathramulla vakkukal ee lokathu illa ennu njan thiricharinju.\n\nNee ente jeevithathilekk vannappol ellaatheyum ettavum sundaramaayi nee maatti mariju. Ente veshmangalilum ella prathasandhikalilum enikkulla ore ekha aashwasam nee mathram aanu.\n\nNee urangan neram njan phone-il vechu tharunna aa "Muthe Muthe" paattum, nee urakkathi njetti yeneech "Adhii..." enn oru viliyum... athu kelkkumbol ente manass niranju pokum. yende jeevithathile ettavum valiya santhosham tharan aa ore oru vili mathi.\n\nParayan ulla vakkukalkkum apporathaanu ninnodulla sneham. Ente jeevithathile oro divasavum athu ninnnem kaanichu tharan njan ippozhum ezhuthukayanu.\n\nEnnum ninte mathram,\nWith every heartbeat, ninte Adhiii ❤️`;
+let typeTO;
+function startTypewriter(){
+  const el=document.getElementById('letterText');el.textContent='';let i=0;clearTimeout(typeTO);
+  (function type(){if(i<letterTxt.length){const c=letterTxt[i];if(c==='\n')el.innerHTML+='<br>';else el.textContent+=c;i++;typeTO=setTimeout(type,26);}})();
+}
+
+// ============================================================
+//  TIMELINE
+// ============================================================
+function animateTimeline(){const items=document.querySelectorAll('.t-item');items.forEach((el,i)=>{el.classList.remove('show');setTimeout(()=>el.classList.add('show'),200+i*280);});}
+
+// ============================================================
+//  REASONS
+// ============================================================
+const reasons = [
+  "Ente oru cheriya aalochanayil polum ninnil ethuthumbozhum ente mukgath oru chiri varum.",
+  "Ente tholvi thamaasakal kandaalum nee mathrame ippozhum ingane chirippikkaaruള്ളൂ.",
+  "Ninte aa nalla manassu oro divasavum enikkulla ettavum valiya prachodanam aanu.",
+  "Namukk idayilulla aa cheriya minnൽ mounam polum ethra comfort aayittaanu enikk thonnnaru.",
+  "Njan chumma parayunna cheriya cheriya kaaryangal polum nee orth vekkum.",
+  "Ente sankalpangalkkum swapnangalkkum nee oru chodyavum koodathe thunayaayi nilkkum.",
+  "Ee lokathu enikk ettavum ishtamulla kazhch ninte aa mukhathulla chiri mathram aanu.",
+  "Nee enne etrayo nannaayi manassilaakkunnu ennu enikk eppozhum thonnikkaaru.",
+  "Nee snehikkunna aalkkaarkk vendi nee ethra mathram care cheyyunnu ennu njan kaanarullatha.",
+  "Nee pedichittum sankadathilum enne 'Adhii...' enn vilikkunna aa oru reethi... ath enikk orupad ishtama.",
+  "Namude cheriya divasangal polum nee vannathode entho valiya maanthrikatha poleyaayi.",
+  "Ente ettavum favorite sound nee 'Muthe Muthe' paattu kett urangan pokumbol ulla aa shabdama.",
+  "Nishkalankamaayi nee ennod karyangal parayum, athra transparent aanu nee ennod.",
+  "Njan chila neram time edukkumbozhum nee ethra nannaayitta katha nilkkaaru.",
+  "Nee ente koode ullappol enikk enneyum kooduthal nalloralaakkan thonnum.",
+  "Cheriya cheriya santhoshangalkk polum nee kodukkunna valiya value athonnu vereya.",
+  "Ee lokath njan kanda ettavum sundaramaaya hridayam nintethu mathram aanu.",
+  "Ethra prathasandhikalum sankadangalulla divasangalilum nee enne vittu pokathe koode nilkkum.",
+  "Nee oru karyathil focus cheythu nikkunna aa look kaanan nalla azhaka.",
+  "Nee ente koode ullappol ee lokath njan ottakkaano enna sankadam enikk ippo illa.",
+  "Nee karuthunnathinekkalum etrayo strong aanu ninte manassu.",
+  "Nee eppozhum ninte noorupreetham nalla reethiyil karyangal cheyyan sremikkaaru.",
+  "Nee ente koode ullappol ente thalayude mookalil oru swandham veedu ulla pratheethiya.",
+  "Ninte aa chiri kettal mathi, ath aarkkum oru positive energy tharunnooridathaanu.",
+  "Oro cheriya karyangalkkum nee kodukkunna aa deep care athraykkum valiyatha.",
+  "Nee snehikkunna karyangale patti chirippichu samsarikkumbozhum ninte mukhathulla aa aavesham kaanan nalla rasiya.",
+  "Ellaarkkum nallathu mathram varanam ennu vicharikkunna oru nalla manassa nintethu.",
+  "Ninte koode irikkumbozhaan njan ente life-ile ettavum nalla reethiyil behave cheyyaaru.",
+  "Ninte koode kazhiyunnallo oro divasavum ente jeevithathile ettavum valiya bhagyama.",
+  "Nee ennum, namukk eppozhum, irreplaceable aaya ente swandham Kuttaaa mathram aanu."
+];
+let rIdx=0;
+function updateReason(){document.getElementById('rNum').textContent=`Reason ${rIdx+1} of ${reasons.length}`;document.getElementById('rText').textContent=reasons[rIdx];document.getElementById('rProg').style.width=((rIdx+1)/reasons.length*100)+'%';}
+function nextReason(){rIdx=(rIdx+1)%reasons.length;updateReason();spawnHeart();}
+function prevReason(){rIdx=(rIdx-1+reasons.length)%reasons.length;updateReason();}
+
+// ============================================================
+//  ADORE
+// ============================================================
+function animateAdore(){const c=document.querySelectorAll('.adore-card');c.forEach((el,i)=>{el.classList.remove('show');setTimeout(()=>el.classList.add('show'),100+i*110);});}
+
+// ============================================================
+//  QUIZ
+// ============================================================
+const quizData=[{q:"Namma parijaya pettath yethil ann?",opts:["Instagram","Snap chat"," 💫","Orma illa"],correct:1},{q:"Ni yendh parayumbol ann njan blush adikkal?",opts:["Faaa","Kindi","Andi","Adhii"],correct:3},{q:"Ninak njan adhyam ayit vagich thananth yendh?",opts:["Kuttachu","Kinder Joy","Hot bag","Biriyani"],correct:0},{q:"Nammal adhyam ayi message ayach yeppam?",opts:["jan 4","jan 15","jan 16","jan 13"],correct:3},{q:"Ninak yettam istam ulla paat yeth ann?",opts:["Konne muthe","Kindi muthe","Muthe muthe","Andi muthe"],correct:2}];
+let qIdx=0,score=0;
+function startQuiz(){qIdx=0;score=0;document.getElementById('quizResult').style.display='none';document.getElementById('quizQ').style.display='';document.getElementById('quizOpts').style.display='';showQ();}
+function showQ(){if(qIdx>=quizData.length){showQRes();return;}const q=quizData[qIdx];document.getElementById('quizQ').textContent=q.q;const opts=document.getElementById('quizOpts');opts.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='quiz-opt';b.textContent=o;b.onclick=()=>{document.querySelectorAll('.quiz-opt').forEach(x=>x.onclick=null);b.classList.add(i===q.correct?'correct':'wrong');if(i===q.correct)score++;setTimeout(()=>{qIdx++;showQ();},700);};opts.appendChild(b);});}
+function showQRes(){document.getElementById('quizQ').style.display='none';document.getElementById('quizOpts').style.display='none';const r=document.getElementById('quizResult');r.style.display='block';document.getElementById('quizScore').textContent=`${score}/${quizData.length} 💕`;document.getElementById('quizMsg').textContent=score>=4?"You know us perfectly! 🌹":score>=2?"Pretty good, love! 💕":"We need more late nights talking! 😄";}
+
+// ============================================================
+//  MSG TYPEWRITER
+// ============================================================
+const heartMsg = `Edi Kuttaa,\n\nNjan eppozhum parayunna pole, ninnodu enikkulla sneham muzhuvan paranju theerkan ulla vakkukal onnum enikk kittaarilla dii.\n\nLife-il entho nallath nadakkanundenn enne thonnikkachath nee aanu dii. Sneham ennal chumma oru thonnal mathram alla, ath nammal thirenjedukkunna oru choice aanoo enn nee enne padippichu. Ee Adhii oro divasavum thirenjedukkunnath ente ee Kuttaa-ne mathram aan.\n\nEnte manassil ennum nee mathrame ullennum, enikk ettavum valiyath nee mathram aann enn nee orthvecho. Enne ithra snehikkaan vere aarumilla.\n\nEnte life-lekk vannathinum, enne ithraykkum care cheyyunnathinum orupad thnx dii.\n\nEnnum nintethu mathram, ninte Adhii ❤️`;let msgTO;
+function startMsgTypewriter(){const el=document.getElementById('heartMsg');el.textContent='';let i=0;clearTimeout(msgTO);(function type(){if(i<heartMsg.length){const c=heartMsg[i];if(c==='\n')el.innerHTML+='<br>';else el.textContent+=c;i++;msgTO=setTimeout(type,22);}})();}
+
+// ============================================================
+//  SECRET
+// ============================================================
+function checkSecret(){
+  const v=document.getElementById('secretInput').value.toLowerCase().trim();
+  if(['umma','adhii','love','86'].includes(v)){
+    document.getElementById('secretForm').style.display='none';
+    document.getElementById('secretMsg').style.display='block';
+    showToast('🔓 Secret unlocked! ❤️');
+  } else {
+    showToast('Hmm, not quite… try again 💕');
+    document.getElementById('secretInput').value='';
+  }
+}
+document.getElementById('secretInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkSecret();});
+
+// ============================================================
+//  THANKS
+// ============================================================
+function animateThanks(){const items=document.querySelectorAll('.thanks-item');items.forEach((el,i)=>{el.classList.remove('show');setTimeout(()=>el.classList.add('show'),150+i*170);});}
+
+// ============================================================
+//  FOREVER CANVAS
+// ============================================================
+function startForeverCanvas(){
+  const c=document.getElementById('foreverCanvas');c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const hs=Array.from({length:28},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.5,vy:-(Math.random()*.7+.3),sz:Math.random()*22+8,a:Math.random()*.6+.2,h:Math.random()*40+340}));
+  (function aF(){if(currentPage!==19)return;ctx.clearRect(0,0,c.width,c.height);hs.forEach(h=>{h.x+=h.vx;h.y+=h.vy;if(h.y<-30){h.y=c.height+20;h.x=Math.random()*c.width;}if(h.x<-30||h.x>c.width+30)h.vx*=-1;drawH(ctx,h.x,h.y,h.sz,h.a,h.h);});requestAnimationFrame(aF);})();
+}
+
+// ============================================================
+//  FIREWORKS
+// ============================================================
+function startFireworks(){
+  const c=document.getElementById('fireworkCanvas');c.width=window.innerWidth;c.height=window.innerHeight;
+  const ctx=c.getContext('2d');let sparks=[];
+  function burst(x,y){const cols=['#e8305a','#f7b8c8','#d4a843','#c9a0dc','#fff'];for(let i=0;i<36;i++){const a=(Math.PI*2/36)*i;const sp=Math.random()*3+1;sparks.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,alpha:1,color:cols[Math.floor(Math.random()*cols.length)],size:Math.random()*2.5+1});}}
+  (function aFW(){if(currentPage!==20)return;ctx.fillStyle='rgba(13,0,8,.15)';ctx.fillRect(0,0,c.width,c.height);sparks=sparks.filter(s=>s.alpha>.02);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.vy+=.04;s.alpha-=.014;ctx.save();ctx.globalAlpha=s.alpha;ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(s.x,s.y,s.size,0,Math.PI*2);ctx.fill();ctx.restore();});requestAnimationFrame(aFW);})();
+  burst(window.innerWidth/2,window.innerHeight/3);
+  const iv=setInterval(()=>{if(currentPage!==20)return clearInterval(iv);burst(Math.random()*window.innerWidth,Math.random()*window.innerHeight*.6);},1300);
+}
+
+// ============================================================
+//  PROPOSAL
+// ============================================================
+function sayYes(){showToast('💕 She said YES! Forever & always! 🌹');for(let i=0;i<10;i++)setTimeout(spawnHeart,i*120);setTimeout(()=>goTo(21),2200);}
+function moveNo(){const b=document.getElementById('noBtn');b.style.position='fixed';b.style.left=Math.random()*(window.innerWidth-120)+'px';b.style.top=Math.random()*(window.innerHeight-60)+'px';}
+
+// ============================================================
+//  SLIDESHOW
+// ============================================================
+function startSlideshow(){
+  const slides=document.querySelectorAll('.slide');let si=0;
+  const iv=setInterval(()=>{if(currentPage!==21)return clearInterval(iv);slides[si].classList.remove('active');si=(si+1)%slides.length;slides[si].classList.add('active');},2200);
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+function redeem(name){showToast(`🎫 "${name}" redeemed! ❤️`);spawnHeart();}
+
+// Easter egg
+let tapCount=0;
+document.querySelector('#p1 .big-heart').addEventListener('click',()=>{tapCount++;if(tapCount===5){showToast('🌟 Secret: You are absolute magic! 🌹');tapCount=0;}});
+</script>
+</body>
+</html>
